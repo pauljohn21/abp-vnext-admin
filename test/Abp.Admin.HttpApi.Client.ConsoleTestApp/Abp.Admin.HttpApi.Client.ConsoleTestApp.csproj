@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <OutputType>Exe</OutputType>
@@ -15,7 +15,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Volo.Abp.Http.Client.IdentityModel" Version="4.4.0" />
+    <PackageReference Include="Volo.Abp.Http.Client.IdentityModel" Version="$(AbpVersion)" />
     <ProjectReference Include="..\..\src\Abp.Admin.HttpApi.Client\Abp.Admin.HttpApi.Client.csproj" />
   </ItemGroup>
 

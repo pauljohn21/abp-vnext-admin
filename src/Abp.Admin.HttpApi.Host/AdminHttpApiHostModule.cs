@@ -26,6 +26,11 @@ using Volo.Abp.Localization;
 using Volo.Abp.Modularity;
 using Volo.Abp.Swashbuckle;
 using Volo.Abp.VirtualFileSystem;
+using Volo.Abp.Account.Web;
+using Volo.Abp.AspNetCore.ExceptionHandling;
+using Abp.Admin.HttpApi.Host.Extensions.Filters;
+using Serilog;
+using Abp.Admin.HttpApi.Host.Extensions;
 
 namespace Abp.Admin
 {
@@ -36,7 +41,7 @@ namespace Abp.Admin
         typeof(AbpAspNetCoreMvcUiMultiTenancyModule),
         typeof(AdminApplicationModule),
         typeof(AdminEntityFrameworkCoreModule),
-        typeof(AbpAspNetCoreSerilogModule),
+        typeof(AbpAspNetCoreSerilogModule), typeof(AbpAccountWebIdentityServerModule),
         typeof(AbpSwashbuckleModule)
     )]
     public class AdminHttpApiHostModule : AbpModule
@@ -52,15 +57,38 @@ namespace Abp.Admin
             ConfigureCache(configuration);
             ConfigureVirtualFileSystem(context);
             ConfigureRedis(context, configuration, hostingEnvironment);
+            ConfigureAbpExcepotions(context);
             ConfigureCors(context, configuration);
             ConfigureSwaggerServices(context, configuration);
+            ConfigureHealthChecks(context);
         }
 
         private void ConfigureCache(IConfiguration configuration)
         {
             Configure<AbpDistributedCacheOptions>(options => { options.KeyPrefix = "Admin:"; });
-        }
 
+        }
+        /// <summary>
+        /// 异常处理
+        /// </summary>
+        /// <param name="context"></param>
+        private void ConfigureAbpExcepotions(ServiceConfigurationContext context)
+        {
+            // dev环境显示异常具体信息
+            if (context.Services.GetHostingEnvironment().IsDevelopment())
+            {
+                context.Services.Configure<AbpExceptionHandlingOptions>(options =>
+                {
+                    options.SendExceptionsDetailsToClients = true;
+                });
+            }
+            // 如果要求返回值正确和异常格式一致添加次特性
+            context.Services.AddMvc(options =>
+            {
+                options.Filters.Add(typeof(ResultExceptionFilter));
+            });
+
+        }
         private void ConfigureVirtualFileSystem(ServiceConfigurationContext context)
         {
             var hostingEnvironment = context.Services.GetHostingEnvironment();
@@ -114,8 +142,9 @@ namespace Abp.Admin
                 },
                 options =>
                 {
-                    options.SwaggerDoc("v1", new OpenApiInfo {Title = "Admin API", Version = "v1"});
+                    options.SwaggerDoc("v1", new OpenApiInfo { Title = "Admin API", Version = "v1" });
                     options.DocInclusionPredicate((docName, description) => true);
+                    options.EnableAnnotations();// 启用注解
                     options.CustomSchemaIds(type => type.FullName);
                 });
         }
@@ -124,23 +153,9 @@ namespace Abp.Admin
         {
             Configure<AbpLocalizationOptions>(options =>
             {
-                options.Languages.Add(new LanguageInfo("ar", "ar", "العربية"));
-                options.Languages.Add(new LanguageInfo("cs", "cs", "Čeština"));
                 options.Languages.Add(new LanguageInfo("en", "en", "English"));
-                options.Languages.Add(new LanguageInfo("en-GB", "en-GB", "English (UK)"));
-                options.Languages.Add(new LanguageInfo("fi", "fi", "Finnish"));
-                options.Languages.Add(new LanguageInfo("fr", "fr", "Français"));
-                options.Languages.Add(new LanguageInfo("hi", "hi", "Hindi", "in"));
-                options.Languages.Add(new LanguageInfo("it", "it", "Italian", "it"));
-                options.Languages.Add(new LanguageInfo("hu", "hu", "Magyar"));
-                options.Languages.Add(new LanguageInfo("pt-BR", "pt-BR", "Português"));
-                options.Languages.Add(new LanguageInfo("ru", "ru", "Русский"));
-                options.Languages.Add(new LanguageInfo("sk", "sk", "Slovak"));
-                options.Languages.Add(new LanguageInfo("tr", "tr", "Türkçe"));
                 options.Languages.Add(new LanguageInfo("zh-Hans", "zh-Hans", "简体中文"));
-                options.Languages.Add(new LanguageInfo("zh-Hant", "zh-Hant", "繁體中文"));
-                options.Languages.Add(new LanguageInfo("de-DE", "de-DE", "Deutsch", "de"));
-                options.Languages.Add(new LanguageInfo("es", "es", "Español", "es"));
+
             });
         }
 
@@ -157,7 +172,15 @@ namespace Abp.Admin
                     .PersistKeysToStackExchangeRedis(redis, "Admin-Protection-Keys");
             }
         }
+        private void ConfigureHealthChecks(ServiceConfigurationContext context)
+        {
 
+            var redisConnectionString =
+                context.Services.GetConfiguration().GetValue<string>("Redis:Configuration");
+
+            var mysqlConnectionString = context.Services.GetConfiguration().GetConnectionString("Default");
+            context.Services.AddHealthChecks().AddRedis(redisConnectionString).AddSqlServer(mysqlConnectionString);
+        }
         private void ConfigureCors(ServiceConfigurationContext context, IConfiguration configuration)
         {
             context.Services.AddCors(options =>
@@ -223,8 +246,16 @@ namespace Abp.Admin
 
             app.UseAuditing();
             app.UseAbpSerilogEnrichers();
+            app.UseSerilogRequestLogging(opts =>
+            {
+                opts.EnrichDiagnosticContext = SerilogToEsExtensions.EnrichFromRequest;
+            });
             app.UseUnitOfWork();
             app.UseConfiguredEndpoints();
+            app.UseEndpoints(endpoints =>
+            {
+                endpoints.MapHealthChecks("/health");
+            });
         }
     }
 }
