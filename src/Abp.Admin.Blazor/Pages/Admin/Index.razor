@@ -1,0 +1,11 @@
+@page "/Admin"
+@using Microsoft.Extensions.Localization
+@using global::Abp.Admin.Localization
+@inherits AbpComponentBase
+@inject IStringLocalizer<AdminResource> L
+@if (!this.CurrentUser.IsAuthenticated)
+{
+    <RedirectToLogin/>
+}
+<h1>Admin</h1>
+<p>@L["SamplePageMessage"]</p>

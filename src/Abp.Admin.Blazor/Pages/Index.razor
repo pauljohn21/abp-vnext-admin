@@ -1,0 +1,13 @@
+﻿@page "/Index"
+@using Microsoft.AspNetCore.Components.Authorization
+@using Volo.Abp.AspNetCore.Components
+@using Volo.Abp.MultiTenancy
+@inherits AbpComponentBase
+@inject ICurrentTenant CurrentTenant
+@inject AuthenticationStateProvider AuthenticationStateProvider
+<Card>
+    <CardBody>
+        <h5 class="m-1"> <i class="fas fa-rocket"></i> Congratulations, <strong>Admin</strong> is successfully running!</h5>
+    </CardBody>
+</Card>
+

@@ -1,0 +1,15 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Razor">
+	<Import Project="..\..\common.props" />
+	<PropertyGroup>
+		<TargetFrameworks>net5.0;net6.0</TargetFrameworks>
+		<PackageId>Tchivs.Abp.AspNetCore.Components.WebAssembly.BasicTheme</PackageId>
+	</PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="Volo.Abp.Http.Client.IdentityModel.WebAssembly" Version="4.4.0" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Tchivs.Abp.AspNetCore.Components.Web.BasicTheme\Tchivs.Abp.AspNetCore.Components.Web.BasicTheme.csproj" />
+    <ProjectReference Include="..\Tchivs.Abp.AspNetCore.Components.WebAssembly.Theming\Tchivs.Abp.AspNetCore.Components.WebAssembly.Theming.csproj" />
+  </ItemGroup>
+
+</Project>

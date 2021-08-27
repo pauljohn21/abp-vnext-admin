@@ -1,0 +1,12 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Razor">
+	<Import Project="..\..\common.props" />
+	<PropertyGroup>
+		<TargetFrameworks>net5.0;net6.0</TargetFrameworks>
+	</PropertyGroup>
+
+  <ItemGroup>
+	  <PackageReference Include="Volo.Abp.UI.Navigation" Version="4.4.0" />
+	  <ProjectReference Include="..\Tchivs.Abp.BootstrapUI\Tchivs.Abp.BootstrapUI.csproj" />
+  </ItemGroup>
+
+</Project>

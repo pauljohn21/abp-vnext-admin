@@ -1,0 +1,22 @@
+<Project Sdk="Microsoft.NET.Sdk.Razor">
+
+    <Import Project="..\..\common.props" />
+
+    <PropertyGroup>
+        <TargetFramework>net5.0</TargetFramework>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <PackageReference Include="Volo.Abp.AutoMapper" Version="4.4.0" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <!--<ProjectReference Include="..\..\modules\Identity\Tchivs.Abp.Identity.Blazor\Tchivs.Abp.Identity.Blazor.csproj" />-->
+        <ProjectReference Include="..\Abp.Admin.Application.Contracts\Abp.Admin.Application.Contracts.csproj" />
+        <ProjectReference Include="..\Tchivs.Abp.AspNetCore.Components.Web.Theming\Tchivs.Abp.AspNetCore.Components.Web.Theming.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Folder Include="Pages\User\" />
+    </ItemGroup>
+</Project>

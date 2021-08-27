@@ -1,0 +1,17 @@
+<Project Sdk="Microsoft.NET.Sdk.Razor">
+
+    <Import Project="..\..\common.props" />
+
+    <PropertyGroup>
+        <TargetFramework>net5.0</TargetFramework>
+    </PropertyGroup>
+ 
+
+    <ItemGroup>
+        <!--<ProjectReference Include="..\..\modules\Identity\Tchivs.Abp.Identity.Blazor.WebAssembly\Tchivs.Abp.Identity.Blazor.WebAssembly.csproj" />-->
+        <ProjectReference Include="..\Abp.Admin.Blazor\Abp.Admin.Blazor.csproj" />
+        <ProjectReference Include="..\Abp.Admin.HttpApi.Client\Abp.Admin.HttpApi.Client.csproj" />
+        <ProjectReference Include="..\Tchivs.Abp.AspNetCore.Components.WebAssembly.Theming\Tchivs.Abp.AspNetCore.Components.WebAssembly.Theming.csproj" />
+    </ItemGroup>
+
+</Project>

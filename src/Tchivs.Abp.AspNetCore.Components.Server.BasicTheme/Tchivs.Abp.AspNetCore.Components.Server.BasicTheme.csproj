@@ -1,0 +1,14 @@
+<Project Sdk="Microsoft.NET.Sdk.Razor">
+	<Import Project="..\..\common.props" />
+	<PropertyGroup>
+		<TargetFrameworks>net5.0;net6.0</TargetFrameworks>
+	</PropertyGroup>
+	<ItemGroup>
+		<PackageReference Include="Microsoft.AspNetCore.WebUtilities" Version="2.2.0" />
+	</ItemGroup>
+	<ItemGroup>
+	  <ProjectReference Include="..\Tchivs.Abp.AspNetCore.Components.Server.Theming\Tchivs.Abp.AspNetCore.Components.Server.Theming.csproj" />
+	  <ProjectReference Include="..\Tchivs.Abp.AspNetCore.Components.Web.BasicTheme\Tchivs.Abp.AspNetCore.Components.Web.BasicTheme.csproj" />
+	</ItemGroup>
+
+</Project>
