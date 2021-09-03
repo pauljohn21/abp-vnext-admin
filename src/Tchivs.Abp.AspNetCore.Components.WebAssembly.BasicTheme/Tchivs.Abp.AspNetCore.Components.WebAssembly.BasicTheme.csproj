@@ -5,7 +5,7 @@
 		<PackageId>Tchivs.Abp.AspNetCore.Components.WebAssembly.BasicTheme</PackageId>
 	</PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="Volo.Abp.Http.Client.IdentityModel.WebAssembly" Version="4.4.0" />
+    <PackageReference Include="Volo.Abp.Http.Client.IdentityModel.WebAssembly" Version="$(AbpVersion)" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Tchivs.Abp.AspNetCore.Components.Web.BasicTheme\Tchivs.Abp.AspNetCore.Components.Web.BasicTheme.csproj" />

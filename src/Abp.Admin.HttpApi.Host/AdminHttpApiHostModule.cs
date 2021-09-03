@@ -248,7 +248,7 @@ namespace Abp.Admin
             app.UseAbpSerilogEnrichers();
             app.UseSerilogRequestLogging(opts =>
             {
-                opts.EnrichDiagnosticContext = SerilogToEsExtensions.EnrichFromRequest;
+              //  opts.EnrichDiagnosticContext = SerilogToEsExtensions.EnrichFromRequest;
             });
             app.UseUnitOfWork();
             app.UseConfiguredEndpoints();

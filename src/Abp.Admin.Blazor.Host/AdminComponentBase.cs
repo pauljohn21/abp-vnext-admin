@@ -1,5 +1,4 @@
-﻿using Abp.Admin.Localization;
-using Volo.Abp.AspNetCore.Components;
+﻿using Volo.Abp.AspNetCore.Components;
 
 namespace Abp.Admin.Blazor
 {
@@ -7,7 +6,7 @@ namespace Abp.Admin.Blazor
     {
         protected AdminComponentBase()
         {
-            LocalizationResource = typeof(AdminResource);
+           // LocalizationResource = typeof(Abp.Admin.Localization.AdminResource);
         }
     }
 }

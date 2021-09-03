@@ -6,9 +6,9 @@
 		<OutputType>Library</OutputType>
 	</PropertyGroup>
 	<ItemGroup>
-	  <PackageReference Include="Volo.Abp.AspNetCore.Components.Server" Version="4.4.0" />
-	  <PackageReference Include="Volo.Abp.AspNetCore.Mvc.UI.Bundling" Version="4.4.0" />
-	  <PackageReference Include="Volo.Abp.AspNetCore.Mvc.UI.Packages" Version="4.4.0" />
+	  <PackageReference Include="Volo.Abp.AspNetCore.Components.Server" Version="$(AbpVersion)" />
+	  <PackageReference Include="Volo.Abp.AspNetCore.Mvc.UI.Bundling" Version="$(AbpVersion)" />
+	  <PackageReference Include="Volo.Abp.AspNetCore.Mvc.UI.Packages" Version="$(AbpVersion)" />
 	</ItemGroup>
 	<ItemGroup>
 	  <ProjectReference Include="..\Tchivs.Abp.AspNetCore.Components.Web.Theming\Tchivs.Abp.AspNetCore.Components.Web.Theming.csproj" />

@@ -1,5 +1,4 @@
 ﻿using System.Threading.Tasks;
-using Abp.Admin.Localization;
 using Volo.Abp.UI.Navigation;
 
 namespace Abp.Admin.Blazor.Host
@@ -13,7 +12,7 @@ namespace Abp.Admin.Blazor.Host
                 return Task.CompletedTask;
             }
 
-            var l = context.GetLocalizer<AdminResource>();
+            var l = context.GetLocalizer<Abp.Admin.Localization.AdminResource>();
 
             context.Menu.Items.Insert(
                 0,

@@ -178,6 +178,43 @@ namespace Abp.Admin.IdentityServer
                     corsOrigins: new[] { webClientRootUrl.RemovePostFix("/") }
                 );
             }
+            // Blazor Client
+            var blazorClientId = configurationSection["Admin_Blazor:ClientId"];
+            if (!blazorClientId.IsNullOrWhiteSpace())
+            {
+                var blazorRootUrl = configurationSection["Admin_Blazor:RootUrl"].TrimEnd('/');
+
+                await CreateClientAsync(
+                    name: blazorClientId,
+                    scopes: commonScopes,
+                    grantTypes: new[] { "authorization_code" },
+                    secret: configurationSection["Admin_Blazor:ClientSecret"]?.Sha256(),
+                    requireClientSecret: false,
+                    redirectUri: $"{blazorRootUrl}/authentication/login-callback",
+                    postLogoutRedirectUri: $"{blazorRootUrl}/authentication/logout-callback",
+                    corsOrigins: new[] { blazorRootUrl.RemovePostFix("/") }
+                );
+            }
+            //Blazor Server Tiered Client
+            var blazorServerTieredClientId = configurationSection["Admin_BlazorServerTiered:ClientId"];
+            if (!blazorServerTieredClientId.IsNullOrWhiteSpace())
+            {
+                var blazorServerTieredClientRootUrl = configurationSection["Admin_BlazorServerTiered:RootUrl"].EnsureEndsWith('/');
+
+                /* Admin_BlazorServerTiered client is only needed if you created a tiered blazor server
+                 * solution. Otherwise, you can delete this client. */
+
+                await CreateClientAsync(
+                    name: blazorServerTieredClientId,
+                    scopes: commonScopes,
+                    grantTypes: new[] { "hybrid" },
+                    secret: (configurationSection["Admin_BlazorServerTiered:ClientSecret"] ?? "1q2w3e*").Sha256(),
+                    redirectUri: $"{blazorServerTieredClientRootUrl}signin-oidc",//简化授权使用回调url
+                    postLogoutRedirectUri: $"{blazorServerTieredClientRootUrl}signout-callback-oidc",
+                    frontChannelLogoutUri: $"{blazorServerTieredClientRootUrl}Account/FrontChannelLogout",
+                    corsOrigins: new[] { blazorServerTieredClientRootUrl.RemovePostFix("/") }
+                );
+            }
 
             // Swagger Client
             var swaggerClientId = configurationSection["Admin_Swagger:ClientId"];
