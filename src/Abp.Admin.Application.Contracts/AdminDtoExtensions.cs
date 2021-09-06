@@ -1,9 +1,17 @@
-﻿using Volo.Abp.Identity;
+﻿using Volo.Abp.Application.Dtos;
+using Volo.Abp.Identity;
 using Volo.Abp.ObjectExtending;
 using Volo.Abp.Threading;
 
 namespace Abp.Admin
 {
+    public class PagedAndIncludeSortedResultRequestDto : PagedAndSortedResultRequestDto
+    {
+        /// <summary>
+        /// 载入明细
+        /// </summary>
+        public bool Include { get; set; }
+    }
     public static class AdminDtoExtensions
     {
         private static readonly OneTimeRunner OneTimeRunner = new OneTimeRunner();
