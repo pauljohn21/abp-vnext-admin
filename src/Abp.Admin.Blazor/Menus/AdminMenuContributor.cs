@@ -21,6 +21,7 @@ namespace Abp.Admin.Blazor.Menus
         {
             //Add main menu items.
             context.Menu.AddItem(new ApplicationMenuItem(AdminMenus.Prefix, displayName: "Admin", "/Admin", icon: "fa fa-globe"));
+            context.Menu.AddItem(new ApplicationMenuItem(AdminMenus.Menu, displayName: "Menu", "/Admin/Menu", icon: "fa fa-menu"));
             var administrationMenu = context.Menu.GetAdministration();
 
             #region Identity

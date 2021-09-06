@@ -13,11 +13,12 @@
 
     <ItemGroup>
         <ProjectReference Include="..\Abp.Admin.Application.Contracts\Abp.Admin.Application.Contracts.csproj" />
+        <ProjectReference Include="..\Tchivs.Abp.AspNetCore.Components.Web.BasicTheme\Tchivs.Abp.AspNetCore.Components.Web.BasicTheme.csproj" />
         <ProjectReference Include="..\Tchivs.Abp.AspNetCore.Components.Web.Theming\Tchivs.Abp.AspNetCore.Components.Web.Theming.csproj" />
     </ItemGroup>
 
     <ItemGroup>
-      <Folder Include="Pages\User\" />
-      <Folder Include="Pages\Identity\" />
+      <Folder Include="Pages\Admin\Tenant\" />
+      <Folder Include="Pages\Admin\Identity\" />
     </ItemGroup>
 </Project>

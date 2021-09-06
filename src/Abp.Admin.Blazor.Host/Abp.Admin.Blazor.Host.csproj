@@ -18,10 +18,4 @@
 	  <ProjectReference Include="..\Abp.Admin.Blazor.WebAssembly\Abp.Admin.Blazor.WebAssembly.csproj" />
 	  <ProjectReference Include="..\Tchivs.Abp.AspNetCore.Components.WebAssembly.BasicTheme\Tchivs.Abp.AspNetCore.Components.WebAssembly.BasicTheme.csproj" />
 	</ItemGroup>
- 
-	<ItemGroup>
-	  <None Update="Pages\Index.razor.css">
-	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-	  </None>
-	</ItemGroup>
 </Project>

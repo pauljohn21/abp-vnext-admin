@@ -1,8 +1,7 @@
 @page "/Admin"
 @using Microsoft.Extensions.Localization
 @using global::Abp.Admin.Localization
-@inherits AbpComponentBase
-@inject IStringLocalizer<AdminResource> L
+@inherits AdminComponentBase
 @if (!this.CurrentUser.IsAuthenticated)
 {
     <RedirectToLogin/>
